@@ -51,7 +51,7 @@ public class App {
     }
 
     //MÉTODOS
-    public static boolean conterNumero(String palavra){
+    public static boolean soTemLetras(String palavra){
         for(int i=0;i<palavra.length();i++){
             if (Character.isDigit(palavra.charAt(i))) {
                 return true;
@@ -59,7 +59,7 @@ public class App {
         }
         return false;
     }
-    public static boolean conterletras(String palavra){
+    public static boolean soTemNumeros(String palavra){
         for (int i=0;i<palavra.length();i++){
             if (!Character.isDigit(palavra.charAt(i))) {
                 return false;
@@ -123,6 +123,7 @@ public class App {
             System.out.println("\n\t====== PRODUTOS E ESTOQUE ======");
             System.out.println("\t1 - Cadastrar produto");
             System.out.println("\t2 - Consultar estoque");
+            System.out.println("\t3 - Listar por categoria");
             System.out.println("\t0 - Voltar");
             System.out.print("\tEscolha uma opção: ");
             opcao = sc.nextLine();
@@ -133,6 +134,9 @@ public class App {
                     break;
                 case "2":
                     listarProdutos();
+                    break;
+                case "3":
+                    listarPorCategoria();
                     break;
                 case "0":
                     break;
@@ -177,8 +181,10 @@ public class App {
 
             switch (opcao) {
                 case "1":
+                    registrarEntrega();
                     break;
                 case "2":
+                    listarEntregas();
                     break;
                 case "0":
                     break;
@@ -238,7 +244,7 @@ public class App {
                 if (nome.isBlank()) {
                     throw new IllegalArgumentException("Erro! Nome está vazio.");
                 }
-                if (conterNumero(nome)) {
+                if (soTemLetras(nome)) {
                     throw new IllegalArgumentException("Erro! Nome só deve conter letras.");
                 }
                 for (Produto produto : produtos) {
@@ -330,6 +336,69 @@ public class App {
         }
         limparBuffer();
     }
+    public static void listarPorCategoria(){
+        System.out.println("\t====== PRODUTOS POR CATEGORIA ======");
+
+        if (produtos.isEmpty()) {
+            System.out.println("\n\tNenhum produto cadastrado.");
+            limparBuffer();
+            return;
+        }
+
+        String categoria="";
+
+        System.out.println("\nCategoria:");
+        System.out.println("\t1 - Grãos e Cereais");
+        System.out.println("\t2 - Massas");
+        System.out.println("\t3 - Enlatados");
+        System.out.println("\t4 - Óleos e Temperos");
+        System.out.println("\t5 - Higiene");
+        System.out.println("\t6 - Limpeza");
+
+        do{
+            System.out.print("\n=> ");
+            String opc=sc.nextLine();
+
+            switch (opc) {
+                case "1":
+                    categoria = "Grãos e cereais";
+                    break;
+                case "2":
+                    categoria = "Massas";
+                    break;
+                case "3":
+                    categoria = "Enlatados";
+                    break;
+                case "4":
+                    categoria = "Óleos e temperos";
+                    break;
+                case "5":
+                    categoria = "Higiene";
+                    break;
+                case "6":
+                    categoria = "Limpeza";
+                    break;
+                default:
+                    System.out.println("Erro! Escolha um número da lista.");
+            }
+        }while (categoria.isEmpty());
+
+        int encontrados=0;
+
+        System.out.println("\n\t=> "+categoria+" <=");
+        for (Produto produto : produtos) {
+            if (produto.getCategoria().equalsIgnoreCase(categoria)) {
+                encontrados++;
+                System.out.printf("\n\t=> Produto %d <=\n", encontrados);
+                produto.exibirProduto();
+            }
+        }
+
+        if (encontrados==0) {
+            System.out.println("\n\tNenhum produto nessa categoria.");
+        }
+        limparBuffer();
+    }
     public static void cadastrarFamilia(){
         System.out.println("\t====== CADASTRAR FAMÍLIA ======");
 
@@ -344,7 +413,7 @@ public class App {
                 if (nome.isBlank()) {
                     throw new IllegalArgumentException("Erro! Nome está vazio.");
                 }
-                if (conterNumero(nome)) {
+                if (soTemLetras(nome)) {
                     throw new IllegalArgumentException("Erro! Nome só deve conter letras.");
                 }
                 nomevalido=true;
@@ -364,7 +433,7 @@ public class App {
                 if (cpf.isBlank()) {
                     throw new IllegalArgumentException("Erro! CPF está vazio.");
                 }
-                if (!conterletras(cpf)) {
+                if (!soTemNumeros(cpf)) {
                     throw new IllegalArgumentException("Erro! CPF só deve conter números.");
                 }
                 if (cpf.length()!=11) {
@@ -458,7 +527,7 @@ public class App {
                 if (cpf.isBlank()) {
                     throw new IllegalArgumentException("Erro! CPF está vazio.");
                 }
-                if (!conterletras(cpf)) {
+                if (!soTemNumeros(cpf)) {
                     throw new IllegalArgumentException("Erro! CPF só deve conter números.");
                 }
                 if (cpf.length()!=11) {
@@ -492,7 +561,7 @@ public class App {
                 if (cpf.isBlank()) {
                     throw new IllegalArgumentException("Erro! CPF está vazio.");
                 }
-                if (!conterletras(cpf)) {
+                if (!soTemNumeros(cpf)) {
                     throw new IllegalArgumentException("Erro! CPF só deve conter números.");
                 }
                 if (cpf.length()!=11) {
@@ -548,7 +617,7 @@ public class App {
                 if (cpf.isBlank()) {
                     throw new IllegalArgumentException("Erro! CPF está vazio.");
                 }
-                if (!conterletras(cpf)) {
+                if (!soTemNumeros(cpf)) {
                     throw new IllegalArgumentException("Erro! CPF só deve conter números.");
                 }
                 if (cpf.length()!=11) {
@@ -593,7 +662,7 @@ public class App {
                                 if (nome.isBlank()) {
                                     throw new IllegalArgumentException("Erro! Nome está vazio.");
                                 }
-                                if (conterNumero(nome)) {
+                                if (soTemLetras(nome)) {
                                     throw new IllegalArgumentException("Erro! Nome só deve conter letras.");
                                 }
                                 nomevalido=true;
@@ -687,7 +756,7 @@ public class App {
                 if (nome.isBlank()) {
                     throw new IllegalArgumentException("Erro! Nome está vazio.");
                 }
-                if (conterNumero(nome)) {
+                if (soTemLetras(nome)) {
                     throw new IllegalArgumentException("Erro! Nome não pode conter números.");
                 }
                 nomevalido=true;
@@ -750,7 +819,7 @@ public class App {
                         if (nomeDoador.isBlank()) {
                             throw new IllegalArgumentException("Erro! Nome está vazio.");
                         }
-                        if (conterNumero(nomeDoador)) {
+                        if (soTemLetras(nomeDoador)) {
                             throw new IllegalArgumentException("Erro! Nome só deve conter letras.");
                         }
                         nomeDoadorvalido=true;
@@ -799,6 +868,169 @@ public class App {
             System.out.println("Item: "+doacao.getProduto().getNome());
             System.out.println("Quantidade Doada: "+doacao.getQuantidade());
             System.out.println("Categoria: "+doacao.getProduto().getCategoria());
+        }
+        limparBuffer();
+    }
+    public static boolean jaRecebeuCesta(Familia familia){
+        for (Entrega entrega : entregas) {
+            if (entrega.getFamilia().getCpf().equals(familia.getCpf())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static void registrarEntrega(){
+        System.out.println("\t====== REGISTRAR ENTREGA ======");
+
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado. Cadastre um produto antes.");
+            limparBuffer();
+            return;
+        }
+
+        String cpf="";
+        boolean cpfvalido=false;
+
+        do{
+            try {
+                System.out.print("CPF do Responsável: ");
+                cpf=sc.nextLine();
+
+                if (cpf.isBlank()) {
+                    throw new IllegalArgumentException("Erro! CPF está vazio.");
+                }
+                if (!soTemNumeros(cpf)) {
+                    throw new IllegalArgumentException("Erro! CPF só deve conter números.");
+                }
+                if (cpf.length()!=11) {
+                    throw new IllegalArgumentException("Erro! CPF deve conter 11 dígitos.");
+                }
+                cpfvalido=true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }while(!cpfvalido);
+
+        Familia familia=buscarCpf(cpf);
+
+        if (familia==null) {
+            System.out.println("CPF não encontrado!");
+        }else if(!familia.isAtiva()){
+            System.out.println("Esta família está desligada e não pode receber cestas.");
+        }else if(jaRecebeuCesta(familia)){
+            System.out.println("Esta família já recebeu a cesta!");
+        }else{
+            System.out.println("\t=> Dados da Família <=");
+            familia.exibirFamilia();
+
+            int itensEntregues=0;
+            String opcao="";
+
+            do{
+                System.out.println("\n\t=> Adicionar Produtos <=\n");
+
+                String nomeProduto="";
+                boolean nomeProdutovalido=false;
+
+                do{
+                    try{
+                        System.out.print("Nome do Produto: ");
+                        nomeProduto=sc.nextLine();
+
+                        if (nomeProduto.isBlank()) {
+                            throw new IllegalArgumentException("Erro! Nome está vazio.");
+                        }
+                        if (soTemLetras(nomeProduto)) {
+                            throw new IllegalArgumentException("Erro! Nome não pode conter números.");
+                        }
+                        nomeProdutovalido=true;
+                    }catch(IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }while(!nomeProdutovalido);
+
+                Produto produto=buscarProduto(nomeProduto);
+
+                if (produto==null) {
+                    System.out.println("Produto não encontrado! Produto deve ser cadastrado.");
+                }else if(produto.getQuantidade()==0){
+                    System.out.println("Produto sem estoque!");
+                }else{
+                    System.out.println("\t=> Dados do Produto <=");
+                    produto.exibirProduto();
+
+                    int quantidade=0;
+                    boolean quantidadevalida=false;
+
+                    do{
+                        try{
+                            System.out.print("\nQuantidade para Entrega: ");
+                            quantidade=Integer.parseInt(sc.nextLine());
+
+                            if (quantidade<=0) {
+                                throw new IllegalArgumentException("Erro! Quantidade deve ser maior que zero.");
+                            }
+                            if (quantidade>produto.getQuantidade()) {
+                                throw new IllegalArgumentException("Erro! Estoque insuficiente. Disponível: "+produto.getQuantidade());
+                            }
+                            quantidadevalida=true;
+                        }catch(NumberFormatException e){
+                            System.out.println("Erro! Digite apenas números.");
+                        }catch(IllegalArgumentException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }while(!quantidadevalida);
+
+                    produto.setQuantidade(produto.getQuantidade()-quantidade);
+                    entregas.add(new Entrega(familia, produto, quantidade));
+                    itensEntregues++;
+                    System.out.println("\t=> Item adicionado à cesta <=");
+                }
+
+                System.out.println("\nAdicionar outro produto?\n[1] Sim | [2] Não");
+                do{
+                    System.out.print("-> ");
+                    opcao=sc.nextLine();
+
+                    if (!opcao.equals("1") && !opcao.equals("2")) {
+                        System.out.println("Erro! Digite 1 ou 2.");
+                    }
+                }while(!opcao.equals("1") && !opcao.equals("2"));
+
+            }while(opcao.equals("1"));
+
+            if (itensEntregues>0) {
+                System.out.println("\t=> Entrega Registrada <=");
+            }else{
+                System.out.println("\t=> Nenhum item registrado. Entrega cancelada. <=");
+            }
+        }
+        limparBuffer();
+    }
+    public static void listarEntregas(){
+        System.out.println("\t====== LISTA DE ENTREGAS ======");
+
+        if (entregas.isEmpty()) {
+            System.out.println("\n\t=> Nenhuma Entrega registrada.");
+            limparBuffer();
+            return;
+        }
+        for (Familia familia : familias) {
+            boolean lista=false;
+
+            for (Entrega entrega : entregas) {
+                if (entrega.getFamilia().getCpf().equals(familia.getCpf())) {
+                    if (!lista) {
+                        System.out.println("\nData: "+entrega.getDataFormatada());
+                        System.out.println("Responsável: "+familia.getNome());
+                        System.out.println("CPF: "+familia.getCpf());
+                        System.out.println("Itens:");
+                        lista=true;
+                    }
+                    System.out.println("\t- "+entrega.getProduto().getNome()+
+                    " ("+entrega.getProduto().getCategoria()+"): "+entrega.getQuantidade());
+                }
+            }
         }
         limparBuffer();
     }

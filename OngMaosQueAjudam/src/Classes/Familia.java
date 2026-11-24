@@ -47,7 +47,6 @@ public class Familia {
         this.numeroPessoas = numeroPessoas; 
     }
 
-    //Confirmar se a familia ainda está ativa no programa
     public boolean isAtiva() { 
         return ativa; 
     }
@@ -55,7 +54,6 @@ public class Familia {
         this.ativa = ativa; 
     }
 
-    //Renda por pessoa
     public double getRendaPorPessoa() {
         return rendaMensal / numeroPessoas;
     }
@@ -67,8 +65,8 @@ public class Familia {
         System.out.print("Ativo: ");
         if(ativa==true){
         System.out.println("Sim");
-    }else{
-        System.out.println("Não");
-    }
+        }else{
+            System.out.println("Não");
+        }
     }
 }
