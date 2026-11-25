@@ -31,6 +31,16 @@ public class Metodos{
         System.out.print("-> Pressione ENTER para continuar...");
         sc.nextLine();
     }
+    public static void limparTerminal() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls")
+                .inheritIO()
+                .start()
+                .waitFor();
+        } catch (Exception e) {
+            System.out.println("Erro ao limpar o terminal.");
+        }
+    }
     public static void exibirMenu() {
         System.out.println("\n\t====== MENU PRINCIPAL ======");
         System.out.println("=> Usuário: Administrador\n");
@@ -53,22 +63,28 @@ public class Metodos{
         System.out.println("\t0 - Voltar");
         System.out.print("\tEscolha uma opção: ");
         opcao = sc.nextLine();
+        limparTerminal();
 
         switch (opcao) {
             case "1":
                 cadastrarFamilia();
+                limparTerminal();
                 break;
             case "2":
                 listarFamilias();
+                limparTerminal();
                 break;
             case "3":
                 procurarFamilia();
+                limparTerminal();
                 break;
             case "4":
                 editarFamilia();
+                limparTerminal();
                 break;
             case "5":
                 desligarFamilia();
+                limparTerminal();
                 break;
             case "0":
                 break;
@@ -87,16 +103,20 @@ public class Metodos{
             System.out.println("\t0 - Voltar");
             System.out.print("\tEscolha uma opção: ");
             opcao = sc.nextLine();
+            limparTerminal();
 
             switch (opcao) {
                 case "1":
                     cadastrarProduto();
+                    limparTerminal();
                     break;
                 case "2":
                     listarProdutos();
+                    limparTerminal();
                     break;
                 case "3":
                     listarPorCategoria();
+                    limparTerminal();
                     break;
                 case "0":
                     break;
@@ -114,13 +134,16 @@ public class Metodos{
             System.out.println("\t0 - Voltar");
             System.out.print("\tEscolha uma opção: ");
             opcao = sc.nextLine();
+            limparTerminal();
 
             switch (opcao) {
                 case "1":
                     registrarDoacao();
+                    limparTerminal();
                     break;
                 case "2":
                     listarDoacao();
+                    limparTerminal();
                     break;
                 case "0":
                     break;
@@ -138,13 +161,16 @@ public class Metodos{
             System.out.println("\t0 - Voltar");
             System.out.print("\tEscolha uma opção: ");
             opcao = sc.nextLine();
+            limparTerminal();
 
             switch (opcao) {
                 case "1":
                     registrarEntrega();
+                    limparTerminal();
                     break;
                 case "2":
                     listarEntregas();
+                    limparTerminal();
                     break;
                 case "0":
                     break;
@@ -280,6 +306,7 @@ public class Metodos{
 
         System.out.println("\t=> Produto Cadastrado <=");
         limparBuffer();
+        limparTerminal();
     }
     public static void listarProdutos(){
         System.out.println("\t====== PRODUTOS ======");
@@ -295,6 +322,7 @@ public class Metodos{
             i++;
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void listarPorCategoria(){
         System.out.println("\t====== PRODUTOS POR CATEGORIA ======");
@@ -302,6 +330,7 @@ public class Metodos{
         if (produtos.isEmpty()) {
             System.out.println("\n\tNenhum produto cadastrado.");
             limparBuffer();
+            limparTerminal();
             return;
         }
 
@@ -358,6 +387,7 @@ public class Metodos{
             System.out.println("\n\tNenhum produto nessa categoria.");
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void cadastrarFamilia(){
         System.out.println("\t====== CADASTRAR FAMÍLIA ======");
@@ -461,6 +491,7 @@ public class Metodos{
             System.out.println("\t=> Família Cadastrada <=\n");
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void listarFamilias(){
         System.out.println("\t====== FAMÍLIAS ======");
@@ -473,6 +504,7 @@ public class Metodos{
             familia.exibirFamilia();
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void procurarFamilia(){
         System.out.println("\t====== BUSCA ======\n");
@@ -508,6 +540,7 @@ public class Metodos{
             familia.exibirFamilia();
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void desligarFamilia(){
         System.out.println("\t====== DESLIGAR ======\n");
@@ -564,6 +597,7 @@ public class Metodos{
             }
         }
         limparBuffer();
+        limparTerminal();
     } 
     public static void editarFamilia(){
         System.out.println("\t====== EDITAR ======\n");
@@ -696,6 +730,7 @@ public class Metodos{
             }while(!opcao.equals("0"));
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void registrarDoacao(){
         System.out.println("\t====== REGISTRAR DOAÇÃO ======\n");
@@ -814,6 +849,7 @@ public class Metodos{
             System.out.println("\t=> Doação Registrada <=");
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void listarDoacao(){
         System.out.println("\t====== LISTA ======");
@@ -821,6 +857,7 @@ public class Metodos{
         if (doacoes.isEmpty()) {
             System.out.println("\t=> Nenhuma Doação registrada.");
             limparBuffer();
+            limparTerminal();
             return;
         }
         for (Doacao doacao : doacoes) {
@@ -831,6 +868,7 @@ public class Metodos{
             System.out.println("Categoria: "+doacao.getProduto().getCategoria());
         }
         limparBuffer();
+        limparTerminal();
     }
     public static boolean jaRecebeuCesta(Familia familia){
         for (Entrega entrega : entregas) {
@@ -846,6 +884,7 @@ public class Metodos{
         if (produtos.isEmpty()) {
             System.out.println("Nenhum produto cadastrado. Cadastre um produto antes.");
             limparBuffer();
+            limparTerminal();
             return;
         }
 
@@ -967,6 +1006,7 @@ public class Metodos{
             }
         }
         limparBuffer();
+        limparTerminal();
     }
     public static void listarEntregas(){
         System.out.println("\t====== LISTA DE ENTREGAS ======");
@@ -974,6 +1014,7 @@ public class Metodos{
         if (entregas.isEmpty()) {
             System.out.println("\n\t=> Nenhuma Entrega registrada.");
             limparBuffer();
+            limparTerminal();
             return;
         }
         for (Familia familia : familias) {
@@ -994,5 +1035,6 @@ public class Metodos{
             }
         }
         limparBuffer();
+        limparTerminal();
     }
 }

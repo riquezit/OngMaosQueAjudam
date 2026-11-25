@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class App {
     static Scanner sc=new Scanner(System.in);
-    Metodos m=new Metodos();
     public static void main(String[] args) throws Exception {
         
         if (!Metodos.Login()) {
@@ -11,11 +10,13 @@ public class App {
             return;
         }
         Metodos.limparBuffer();
+        Metodos.limparTerminal();
 
         String opcao;
         do {
             Metodos.exibirMenu();
             opcao=sc.nextLine();
+            Metodos.limparTerminal();
 
             switch (opcao) {
                 case "1":
